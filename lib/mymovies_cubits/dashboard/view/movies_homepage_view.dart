@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:mymovies_app/core/app_color.dart';
 import 'package:mymovies_app/mymovies_cubits/dashboard/cubit/movies_homepage_cubit.dart';
 import 'package:mymovies_app/mymovies_cubits/dashboard/widgets/movies_listpage.dart';
+import 'package:mymovies_app/utils/loading_page.dart';
 
 class MovieHomePageView extends StatelessWidget {
   const MovieHomePageView({super.key});
@@ -13,15 +13,7 @@ class MovieHomePageView extends StatelessWidget {
       builder: (context, state) {
         if (state is MoviesHomepageInitial || state is MoviesHomepageLoading) {
           context.read<MoviesHomepageCubit>().init();
-          return const Material(
-            child: Center(
-              child: CircularProgressIndicator(
-                valueColor: AlwaysStoppedAnimation<Color>(
-                  AppColors.darkGreen,
-                ),
-              ),
-            ),
-          );
+          return const Material(child: LoadingPage());
         } else if (state is MoviesHomepageFailed) {
           return const Material(
             child: Center(child: Text('Something went wrong')),

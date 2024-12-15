@@ -44,13 +44,11 @@ class _SplashScreenState extends State<SplashScreen>
           child: Column(
             mainAxisSize: MainAxisSize.min,
             children: [
-              // App Logo
               Image.asset(
                 'assets/images/Animation - 1734110893587.gif',
                 height: 100,
               ),
               const SizedBox(height: 20),
-              // App Name
               Text(
                 'MyMovies',
                 style: Theme.of(context).textTheme.headlineMedium?.copyWith(
