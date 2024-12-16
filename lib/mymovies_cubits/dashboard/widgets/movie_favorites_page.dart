@@ -1,5 +1,6 @@
 // ignore_for_file: lines_longer_than_80_chars
 
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -80,20 +81,23 @@ class _MyFavoritesPageState extends State<MyFavoritesPage> {
                             child: ListTile(
                               isThreeLine: true,
                               leading: ClipRRect(
-                                borderRadius: BorderRadius.circular(8),
-                                child: movie.posterURL != null
-                                    ? Image.network(
-                                        movie.posterURL!,
-                                        width: 80,
-                                        height: 120,
-                                        fit: BoxFit.cover,
-                                      )
-                                    : Image.asset(
-                                        'assets/images/placeholder.png',
-                                        width: 80,
-                                        height: 120,
-                                        fit: BoxFit.cover,
-                                      ),
+                                borderRadius: BorderRadius.circular(12),
+                                child: CachedNetworkImage(
+                                  imageUrl: movie.posterURL ??
+                                      'https://via.placeholder.com/150',
+                                  width: 80,
+                                  height: 120,
+                                  fit: BoxFit.cover,
+                                  placeholder: (context, url) => Image.network(
+                                    'https://via.placeholder.com/150',
+                                    fit: BoxFit.cover,
+                                  ),
+                                  errorWidget: (context, url, error) =>
+                                      Image.network(
+                                    'https://via.placeholder.com/150',
+                                    fit: BoxFit.cover,
+                                  ),
+                                ),
                               ),
                               title: Text(
                                 movie.title ?? 'Unknown',
